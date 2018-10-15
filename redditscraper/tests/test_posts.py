@@ -25,6 +25,7 @@ def test_convert_post(m):
     m.return_value = "clean title"
 
     expected = posts.Post(
+            pid="92ntdm",
             title="clean title",
             up=0,
             down=0,
@@ -42,6 +43,7 @@ def test_convert_posts(m):
     m.return_value = "clean title"
 
     expected1 = posts.Post(
+            pid="92ntdm",
             title="clean title",
             up=0,
             down=0,
@@ -49,6 +51,7 @@ def test_convert_posts(m):
             created=datetime.datetime(2018, 7, 28, 13, 27, 22))
 
     expected2 = posts.Post(
+            pid="92ntd1",
             title="clean title",
             up=1,
             down=0,
