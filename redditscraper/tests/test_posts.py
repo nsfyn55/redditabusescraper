@@ -12,7 +12,7 @@ single_post = post_json['data']['children'][0]
 
 def test_clean_title():
     raw_title = "Obama and Biden ride again (as detectives!) in the fun mystery, 'Hope Never Dies'"
-    expected = 'Obama and Biden ride again as detectives in the fun mystery Hope Never Dies'
+    expected = 'obama and biden ride again as detectives in the fun mystery hope never dies'
 
     actual = posts._clean_title(raw_title)
 

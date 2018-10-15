@@ -1,7 +1,7 @@
 from collections import namedtuple
 import datetime
 
-User = namedtuple('User', ['username', 'account_age', 'comment_karma', 'link_karma'], verbose=True)
+User = namedtuple('User', ['username', 'account_age', 'comment_karma', 'link_karma'])
 
 def convert_userresp_to_tuple(user_json):
     data = user_json['data']
