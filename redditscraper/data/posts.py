@@ -2,7 +2,7 @@ from collections import namedtuple
 import datetime
 import re
 
-Post= namedtuple('Post', ['title', 'up', 'down', 'domain',], verbose=True)
+Post= namedtuple('Post', ['title', 'up', 'down', 'domain','created'], verbose=True)
 
 
 def convert_fullpost_to_list(posts):
@@ -21,7 +21,9 @@ def convert_postjson_to_tuple(post):
             title=_clean_title(data['title']),
             up=data['ups'],
             down=data['downs'],
-            domain=data['domain'],)
+            domain=data['domain'],
+            created=datetime.datetime.fromtimestamp(int(data['created_utc'])),)
+
     return ret
 
 def _clean_title(title):

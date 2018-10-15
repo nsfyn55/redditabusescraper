@@ -2,6 +2,7 @@ from redditscraper.data import posts
 
 from unittest import mock
 import json
+import datetime
 
 post_file =  open('redditscraper/tests/data/posts.json', 'r')
 post_json = json.loads(post_file.read())
@@ -27,7 +28,8 @@ def test_convert_post(m):
             title="clean title",
             up=0,
             down=0,
-            domain='usatoday.com')
+            domain='usatoday.com',
+            created=datetime.datetime(2018, 7, 28, 13, 27, 22))
 
     actual = posts.convert_postjson_to_tuple(single_post)
 
@@ -43,13 +45,15 @@ def test_convert_posts(m):
             title="clean title",
             up=0,
             down=0,
-            domain='usatoday.com')
+            domain='usatoday.com',
+            created=datetime.datetime(2018, 7, 28, 13, 27, 22))
 
     expected2 = posts.Post(
             title="clean title",
             up=1,
             down=0,
-            domain='apnews.com')
+            domain='apnews.com',
+            created=datetime.datetime(2018, 7, 28, 13, 27, 19))
 
     actual = posts.convert_fullpost_to_list(post_json)
     expected = [expected1, expected2]
