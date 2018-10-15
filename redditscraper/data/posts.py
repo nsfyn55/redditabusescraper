@@ -30,4 +30,4 @@ def convert_postjson_to_tuple(post):
 
 
 def _clean_title(title):
-    return re.sub(r"[-()\"#/@;:<>{}`+=~|.!?,\']", "", title).lower()
+    return re.sub(r"[-()\"#/@;:<>{}`+=~|.!?,\'\‘\’]", "", title).lower()

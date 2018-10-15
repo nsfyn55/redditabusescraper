@@ -16,6 +16,13 @@ def test_clean_title():
 
     actual = posts._clean_title(raw_title)
 
+def test_clean_title_single_tick():
+    raw_title = "trump says ‘rogue killers’ may be involved in saudi journalist case"
+    expected = 'trump says rogue killers may be involved in saudi journalist case'
+
+    actual = posts._clean_title(raw_title)
+
+    assert actual == expected
     assert actual == expected
 
 
