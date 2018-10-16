@@ -1,4 +1,4 @@
-from redditscraper.data import posts
+from redditscraper.data import posts, users
 
 from unittest import mock
 import json
@@ -23,49 +23,76 @@ def test_clean_title_single_tick():
     actual = posts._clean_title(raw_title)
 
     assert actual == expected
-    assert actual == expected
 
 
-@mock.patch('redditscraper.data.posts._clean_title')
-def test_convert_post(m):
+def test_convert_post():
 
-    m.return_value = "clean title"
+    with mock.patch('redditscraper.data.posts._clean_title') as m:
+       with mock.patch('redditscraper.data.posts._get_user_by_name') as user:
 
-    expected = posts.Post(
-            pid="92ntdm",
-            title="clean title",
-            up=0,
-            down=0,
-            domain='usatoday.com',
-            created=datetime.datetime(2018, 7, 28, 13, 27, 22))
+            user.return_value =  users.User(
+                username="nsfyn55",
+                account_age=datetime.timedelta(2461, 15423, 583541),
+                comment_karma=10436,
+                link_karma=352)
 
-    actual = posts.convert_postjson_to_tuple(single_post)
+            m.return_value = "clean title"
 
-    assert expected == actual
+            expected = posts.Post(
+                    pid="92ntdm",
+                    title="clean title",
+                    up=0,
+                    down=0,
+                    domain='usatoday.com',
+                    author_link_karma=352,
+                    author_comment_karma=10436,
+                    author='nsfyn55',
+                    author_account_age=datetime.timedelta(2461, 15423, 583541),
+                    created=datetime.datetime(2018, 7, 28, 13, 27, 22))
+
+            actual = posts.convert_postjson_to_tuple(single_post)
+
+            assert expected == actual
 
 
-@mock.patch('redditscraper.data.posts._clean_title')
-def test_convert_posts(m):
+def test_convert_posts():
 
-    m.return_value = "clean title"
+    with mock.patch('redditscraper.data.posts._clean_title') as m:
+        with mock.patch('redditscraper.data.posts._get_user_by_name') as user:
 
-    expected1 = posts.Post(
-            pid="92ntdm",
-            title="clean title",
-            up=0,
-            down=0,
-            domain='usatoday.com',
-            created=datetime.datetime(2018, 7, 28, 13, 27, 22))
+            user.return_value =  users.User(
+                username="nsfyn55",
+                account_age=datetime.timedelta(2461, 15423, 583541),
+                comment_karma=10436,
+                link_karma=352)
 
-    expected2 = posts.Post(
-            pid="92ntd1",
-            title="clean title",
-            up=1,
-            down=0,
-            domain='apnews.com',
-            created=datetime.datetime(2018, 7, 28, 13, 27, 19))
+            m.return_value = "clean title"
 
-    actual = posts.convert_fullpost_to_list(post_json)
-    expected = [expected1, expected2]
+            expected1 = posts.Post(
+                    pid="92ntdm",
+                    title="clean title",
+                    up=0,
+                    down=0,
+                    domain='usatoday.com',
+                    author='nsfyn55',
+                    author_link_karma=352,
+                    author_comment_karma=10436,
+                    author_account_age=datetime.timedelta(2461, 15423, 583541),
+                    created=datetime.datetime(2018, 7, 28, 13, 27, 22))
 
-    assert expected == actual
+            expected2 = posts.Post(
+                    pid="92ntd1",
+                    title="clean title",
+                    up=1,
+                    down=0,
+                    domain='apnews.com',
+                    author='nsfyn55',
+                    author_link_karma=352,
+                    author_comment_karma=10436,
+                    author_account_age=datetime.timedelta(2461, 15423, 583541),
+                    created=datetime.datetime(2018, 7, 28, 13, 27, 19))
+
+            actual = posts.convert_fullpost_to_list(post_json)
+            expected = [expected1, expected2]
+
+            assert expected == actual

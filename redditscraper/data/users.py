@@ -1,7 +1,23 @@
+from redditscraper import config
+
+import requests
 from collections import namedtuple
 import datetime
+import json
 
-User = namedtuple('User', ['username', 'account_age', 'comment_karma', 'link_karma'])
+USER_AGENT = config["Network"].get("user-agent")
+headers = {
+    'User-Agent': USER_AGENT,
+}
+url_frag_1 = "https://www.reddit.com/user/"
+url_frag_2 = "/about.json"
+
+User = namedtuple('User',
+        [
+            'username',
+            'account_age',
+            'comment_karma',
+            'link_karma'])
 
 def convert_userresp_to_tuple(user_json):
     data = user_json['data']
@@ -18,3 +34,10 @@ def convert_userresp_to_tuple(user_json):
 def _convert_created_utc_to_account_age(from_date, created_utc):
     created_dt = datetime.datetime.fromtimestamp(created_utc)
     return from_date - created_dt
+
+def get_user_by_name(username):
+    url = "{}{}{}".format(url_frag_1,username,url_frag_2)
+    r = requests.get(url, headers=headers)
+    return convert_userresp_to_tuple(json.loads(r.text))
+
+

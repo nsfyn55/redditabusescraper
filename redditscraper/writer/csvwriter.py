@@ -22,4 +22,10 @@ def _convert_post_line(p):
    ret.append(str(p.domain))
    ret.append(str(p.created.isoformat()))
 
+   ret.append(str(p.author))
+   ret.append(str(p.author_link_karma))
+   ret.append(str(p.author_comment_karma))
+   ret.append(str(p.author_account_age.days))
+
+
    return ",".join(ret)
