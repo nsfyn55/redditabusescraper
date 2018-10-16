@@ -24,3 +24,26 @@ def test_post_writeline():
 
         assert actual == expected
 
+
+def test_write_dir_does_not_exist():
+    with mock.patch('redditscraper.writer.csvwriter._write') as w:
+        with mock.patch('redditscraper.writer.csvwriter._build_path') as build_path:
+            with mock.patch('redditscraper.writer.csvwriter.os') as os:
+
+                os.path.exists.return_value = False
+
+                ps = posts.convert_fullpost_to_list(post_json)
+                csvwriter.write(ps)
+                os.mkdir.assert_called_once()
+
+
+def test_write_dir_does_exist():
+    with mock.patch('redditscraper.writer.csvwriter._write') as w:
+        with mock.patch('redditscraper.writer.csvwriter._build_path') as build_path:
+            with mock.patch('redditscraper.writer.csvwriter.os') as os:
+
+                os.path.exists.return_value = True
+
+                ps = posts.convert_fullpost_to_list(post_json)
+                csvwriter.write(ps)
+                os.mkdir.assert_not_called()
