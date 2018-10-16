@@ -15,7 +15,7 @@ url_frag_2 = "/about.json"
 User = namedtuple('User',
         [
             'username',
-            'account_age',
+            'account_created_date',
             'comment_karma',
             'link_karma'])
 
@@ -25,15 +25,12 @@ def convert_userresp_to_tuple(user_json):
 
     ret = User(
             username=data['name'],
-            account_age=_convert_created_utc_to_account_age(today, data['created_utc']),
+            account_created_date=datetime.datetime.fromtimestamp(data['created_utc']),
             comment_karma=data['comment_karma'],
             link_karma=data['link_karma'],)
 
     return ret
 
-def _convert_created_utc_to_account_age(from_date, created_utc):
-    created_dt = datetime.datetime.fromtimestamp(created_utc)
-    return from_date - created_dt
 
 def get_user_by_name(username):
     url = "{}{}{}".format(url_frag_1,username,url_frag_2)

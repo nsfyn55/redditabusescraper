@@ -12,7 +12,7 @@ Post= namedtuple('Post', [
     'author_link_karma',
     'author_comment_karma',
     'author',
-    'author_account_age',
+    'author_account_created_date',
     'created'])
 
 
@@ -41,7 +41,7 @@ def convert_postjson_to_tuple(post):
             author_link_karma=author.link_karma,
             author_comment_karma=author.comment_karma,
             author=author.username,
-            author_account_age=author.account_age,
+            author_account_created_date=author.account_created_date,
             created=datetime.datetime.fromtimestamp(int(data['created_utc'])),)
 
     return ret

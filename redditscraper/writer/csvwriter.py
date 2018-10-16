@@ -25,7 +25,7 @@ def _convert_post_line(p):
    ret.append(str(p.author))
    ret.append(str(p.author_link_karma))
    ret.append(str(p.author_comment_karma))
-   ret.append(str(p.author_account_age.days))
+   ret.append(str(p.author_account_created_date.isoformat()))
 
 
    return ",".join(ret)

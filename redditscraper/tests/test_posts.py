@@ -32,7 +32,7 @@ def test_convert_post():
 
             user.return_value =  users.User(
                 username="nsfyn55",
-                account_age=datetime.timedelta(2461, 15423, 583541),
+                account_created_date=datetime.datetime.fromtimestamp(1326982593),
                 comment_karma=10436,
                 link_karma=352)
 
@@ -47,7 +47,7 @@ def test_convert_post():
                     author_link_karma=352,
                     author_comment_karma=10436,
                     author='nsfyn55',
-                    author_account_age=datetime.timedelta(2461, 15423, 583541),
+                    author_account_created_date=datetime.datetime.fromtimestamp(1326982593),
                     created=datetime.datetime(2018, 7, 28, 13, 27, 22))
 
             actual = posts.convert_postjson_to_tuple(single_post)
@@ -62,7 +62,7 @@ def test_convert_posts():
 
             user.return_value =  users.User(
                 username="nsfyn55",
-                account_age=datetime.timedelta(2461, 15423, 583541),
+                account_created_date=datetime.datetime.fromtimestamp(1326982593),
                 comment_karma=10436,
                 link_karma=352)
 
@@ -77,7 +77,7 @@ def test_convert_posts():
                     author='nsfyn55',
                     author_link_karma=352,
                     author_comment_karma=10436,
-                    author_account_age=datetime.timedelta(2461, 15423, 583541),
+                    author_account_created_date=datetime.datetime.fromtimestamp(1326982593),
                     created=datetime.datetime(2018, 7, 28, 13, 27, 22))
 
             expected2 = posts.Post(
@@ -89,7 +89,7 @@ def test_convert_posts():
                     author='nsfyn55',
                     author_link_karma=352,
                     author_comment_karma=10436,
-                    author_account_age=datetime.timedelta(2461, 15423, 583541),
+                    author_account_created_date=datetime.datetime.fromtimestamp(1326982593),
                     created=datetime.datetime(2018, 7, 28, 13, 27, 19))
 
             actual = posts.convert_fullpost_to_list(post_json)
