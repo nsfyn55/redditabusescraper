@@ -1,3 +1,6 @@
 import configparser
+import os
+
 config = configparser.ConfigParser()
-config.read("redditscraper/config/config.ini")
+SCRAPER_CONFIG_DIR = os.environ.get('SCRAPER_CONFIG_DIR', 'redditscraper/config/config.ini')
+config.read(SCRAPER_CONFIG_DIR)
