@@ -19,6 +19,7 @@ User = namedtuple('User',
             'comment_karma',
             'link_karma'])
 
+
 def convert_userresp_to_tuple(user_json):
     data = user_json['data']
     today = datetime.datetime.today()

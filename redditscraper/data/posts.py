@@ -30,7 +30,7 @@ def convert_postjson_to_tuple(post):
 
     data = post['data']
     author = _get_user_by_name(data['author'])
-    
+
     title = _clean_title(data['title'])
     ret = Post(
             pid=data['id'],
@@ -49,6 +49,7 @@ def convert_postjson_to_tuple(post):
 
 def _get_user_by_name(username):
     return users.get_user_by_name(username)
+
 
 def _clean_title(title):
     return re.sub(r"[-()\"#/@;:<>{}`+=~|.!?,\'\‘\’]", "", title).lower()

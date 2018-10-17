@@ -1,0 +1,4 @@
+#!/bin/sh -
+
+export PYTHONPATH=..
+export SCRAPER_CONFIG_DIR=../redditscraper/config/config.ini
