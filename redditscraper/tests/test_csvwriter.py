@@ -28,22 +28,29 @@ def test_post_writeline():
 def test_write_dir_does_not_exist():
     with mock.patch('redditscraper.writer.csvwriter._write') as w:
         with mock.patch('redditscraper.writer.csvwriter._build_path') as build_path:
-            with mock.patch('redditscraper.writer.csvwriter.os') as os:
+            with mock.patch('redditscraper.writer.csvwriter.Path') as Path:
 
-                os.path.exists.return_value = False
+                path_module_mock = mock.Mock()
+                path_module_mock.exists.return_value = False
+
+                Path.return_value= path_module_mock
 
                 ps = posts.convert_fullpost_to_list(post_json)
                 csvwriter.write(ps)
-                os.mkdir.assert_called_once()
+                path_module_mock.mkdir.assert_called_once_with(parents=True, exist_ok=True)
 
 
 def test_write_dir_does_exist():
     with mock.patch('redditscraper.writer.csvwriter._write') as w:
         with mock.patch('redditscraper.writer.csvwriter._build_path') as build_path:
-            with mock.patch('redditscraper.writer.csvwriter.os') as os:
+            with mock.patch('redditscraper.writer.csvwriter.Path') as Path:
 
-                os.path.exists.return_value = True
+                path_module_mock = mock.Mock()
+                path_module_mock.exists.return_value = True
+
+                Path.return_value= path_module_mock
 
                 ps = posts.convert_fullpost_to_list(post_json)
                 csvwriter.write(ps)
-                os.mkdir.assert_not_called()
+                path_module_mock.mkdir.assert_not_called()
+

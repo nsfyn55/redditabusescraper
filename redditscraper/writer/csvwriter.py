@@ -1,19 +1,18 @@
 from redditscraper import config
-import os
 import datetime
-
-OUTPUT_DIR=config['Output']['dir']
+from pathlib import Path
 
 
 def write(ps):
     """ write a post list to a csv """
 
+    path = Path(config['Data']['raw-data-dir'])
     ls = _convert_post_to_line_list(ps)
 
-    if not os.path.exists(OUTPUT_DIR):
-        os.mkdir(OUTPUT_DIR)
+    if not path.exists():
+        path.mkdir(parents=True, exist_ok=True)
 
-    path = _build_path(OUTPUT_DIR)
+    path = _build_path(str(path))
 
     _write(ls, path)
 
@@ -26,7 +25,7 @@ def _write(data, path):
 
 
 def _build_path(directory):
-    return OUTPUT_DIR + '/out'+datetime.datetime.now().isoformat()+'.csv'
+    return directory + '/out'+datetime.datetime.now().isoformat()+'.csv'
 
 
 def _convert_post_to_line_list(ps):

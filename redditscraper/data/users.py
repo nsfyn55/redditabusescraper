@@ -37,5 +37,3 @@ def get_user_by_name(username):
     url = "{}{}{}".format(url_frag_1,username,url_frag_2)
     r = requests.get(url, headers=headers)
     return convert_userresp_to_tuple(json.loads(r.text))
-
-
