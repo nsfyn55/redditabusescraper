@@ -1,4 +1,5 @@
 #!/bin/sh -
 
+export SRC_DIR="$HOME/src/redditabusescraper"
 export PYTHONPATH=..
-export SCRAPER_CONFIG_DIR=../redditscraper/config/config.ini
+export SCRAPER_CONFIG_DIR=$SRC_DIR/redditscraper/config/config.ini
